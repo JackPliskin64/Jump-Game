@@ -12,11 +12,13 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     public Rigidbody2D rb;
     public Animator animator;
+    public SpriteRenderer spriteRenderer;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
     void FixedUpdate()
     {
@@ -27,15 +29,25 @@ public class PlayerController : MonoBehaviour
         Jump();
         
 
-        if (input.x == 0)
+        if (input.x < 0)
         {
             animator.SetBool("isMoving", false);
+            spriteRenderer.flipX = true;
         }
+        else { if (input.x > 0)
+            {
+                spriteRenderer.flipX= false;
+            }
+                }
     }
 
     public void SetAnimations()
     {
             animator.SetFloat("moveX", input.x);
+            if (input.x < 0)
+        {
+
+        }
 
     }
     public void GameOver()
